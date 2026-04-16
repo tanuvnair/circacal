@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { z } from "zod";
+import {
+  EyeIcon,
+  EyeOffIcon,
+  LogInIcon,
+  LockIcon,
+  MailIcon,
+} from "lucide-react";
 import { authClient } from "~/lib/auth.client";
 import { Alert, AlertDescription } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -17,7 +24,12 @@ import {
   FieldGroup,
   FieldLabel,
 } from "~/components/ui/field";
-import { Input } from "~/components/ui/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "~/components/ui/input-group";
 
 const signInSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
@@ -34,6 +46,7 @@ export default function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -87,17 +100,22 @@ export default function SignIn() {
               <AlertDescription>{serverError}</AlertDescription>
             </Alert>
           )}
-          <FieldGroup className="gap-4">
+          <FieldGroup>
             <Field data-invalid={fieldErrors.email ? true : undefined}>
               <FieldLabel htmlFor="email">Email</FieldLabel>
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                aria-invalid={!!fieldErrors.email}
-              />
+              <InputGroup>
+                <InputGroupInput
+                  id="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  aria-invalid={!!fieldErrors.email}
+                />
+                <InputGroupAddon>
+                  <MailIcon className="text-muted-foreground" />
+                </InputGroupAddon>
+              </InputGroup>
               <FieldError>{fieldErrors.email}</FieldError>
             </Field>
             <Field data-invalid={fieldErrors.password ? true : undefined}>
@@ -110,19 +128,41 @@ export default function SignIn() {
                   Forgot password?
                 </Link>
               </div>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                aria-invalid={!!fieldErrors.password}
-              />
+              <InputGroup>
+                <InputGroupInput
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  aria-invalid={!!fieldErrors.password}
+                />
+                <InputGroupAddon>
+                  <LockIcon className="text-muted-foreground" />
+                </InputGroupAddon>
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    size="icon-xs"
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                    onClick={() => setShowPassword((v) => !v)}
+                  >
+                    {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
               <FieldError>{fieldErrors.password}</FieldError>
             </Field>
           </FieldGroup>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? (
+              "Signing in..."
+            ) : (
+              <>
+                <LogInIcon data-icon="inline-start" /> Sign In
+              </>
+            )}
           </Button>
         </form>
       </CardContent>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { z } from "zod";
+import { MailIcon, SendIcon } from "lucide-react";
 import { authClient } from "~/lib/auth.client";
 import { Button } from "~/components/ui/button";
 import {
@@ -16,7 +17,11 @@ import {
   FieldGroup,
   FieldLabel,
 } from "~/components/ui/field";
-import { Input } from "~/components/ui/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "~/components/ui/input-group";
 
 const forgotPasswordSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
@@ -74,19 +79,30 @@ export default function ForgotPassword() {
               <FieldGroup>
                 <Field data-invalid={fieldError ? true : undefined}>
                   <FieldLabel htmlFor="email">Email</FieldLabel>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="you@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    aria-invalid={!!fieldError}
-                  />
+                  <InputGroup>
+                    <InputGroupInput
+                      id="email"
+                      type="email"
+                      placeholder="you@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      aria-invalid={!!fieldError}
+                    />
+                    <InputGroupAddon>
+                      <MailIcon />
+                    </InputGroupAddon>
+                  </InputGroup>
                   <FieldError>{fieldError}</FieldError>
                 </Field>
               </FieldGroup>
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Sending..." : "Send Reset Link"}
+                {loading ? (
+                  "Sending..."
+                ) : (
+                  <>
+                    <SendIcon data-icon="inline-start" /> Send Reset Link
+                  </>
+                )}
               </Button>
             </form>
           </CardContent>

@@ -1,8 +1,10 @@
 import { Outlet, redirect, useNavigate } from "react-router";
 import type { Route } from "./+types/layout";
+import { ArrowLeftIcon } from "lucide-react";
 import { getSession } from "~/lib/auth.server";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
+import { CircaCalLogo } from "~/components/circacal-logo";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const session = await getSession(request);
@@ -18,13 +20,11 @@ export default function AuthLayout() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm space-y-4">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
-          Back
+        <Button variant="outline" size="sm" onClick={() => navigate(-1)}>
+          <ArrowLeftIcon data-icon="inline-start" /> Back
         </Button>
         <Card>
-          <div className="flex justify-center">
-            <span className="text-xl font-bold tracking-tight">CircaCal</span>
-          </div>
+          <CircaCalLogo to="/" className="py-2" />
           <Outlet />
         </Card>
       </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";
 import { z } from "zod";
+import { EyeIcon, EyeOffIcon, LockIcon, ShieldCheckIcon } from "lucide-react";
 import { authClient } from "~/lib/auth.client";
 import { Alert, AlertDescription } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -16,7 +17,12 @@ import {
   FieldGroup,
   FieldLabel,
 } from "~/components/ui/field";
-import { Input } from "~/components/ui/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "~/components/ui/input-group";
 
 const resetPasswordSchema = z
   .object({
@@ -45,6 +51,8 @@ export default function ResetPassword() {
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -119,17 +127,33 @@ export default function ResetPassword() {
               <AlertDescription>{serverError}</AlertDescription>
             </Alert>
           )}
-          <FieldGroup className="gap-4">
+          <FieldGroup>
             <Field data-invalid={fieldErrors.password ? true : undefined}>
               <FieldLabel htmlFor="password">New Password</FieldLabel>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                aria-invalid={!!fieldErrors.password}
-              />
+              <InputGroup>
+                <InputGroupInput
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  aria-invalid={!!fieldErrors.password}
+                />
+                <InputGroupAddon>
+                  <LockIcon />
+                </InputGroupAddon>
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    size="icon-xs"
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                    onClick={() => setShowPassword((v) => !v)}
+                  >
+                    {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
               <FieldError>{fieldErrors.password}</FieldError>
             </Field>
             <Field
@@ -138,19 +162,41 @@ export default function ResetPassword() {
               <FieldLabel htmlFor="confirmPassword">
                 Confirm Password
               </FieldLabel>
-              <Input
-                id="confirmPassword"
-                type="password"
-                placeholder="••••••••"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                aria-invalid={!!fieldErrors.confirmPassword}
-              />
+              <InputGroup>
+                <InputGroupInput
+                  id="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  aria-invalid={!!fieldErrors.confirmPassword}
+                />
+                <InputGroupAddon>
+                  <LockIcon />
+                </InputGroupAddon>
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    size="icon-xs"
+                    aria-label={
+                      showConfirmPassword ? "Hide password" : "Show password"
+                    }
+                    onClick={() => setShowConfirmPassword((v) => !v)}
+                  >
+                    {showConfirmPassword ? <EyeOffIcon /> : <EyeIcon />}
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
               <FieldError>{fieldErrors.confirmPassword}</FieldError>
             </Field>
           </FieldGroup>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Resetting..." : "Reset Password"}
+            {loading ? (
+              "Resetting..."
+            ) : (
+              <>
+                <ShieldCheckIcon data-icon="inline-start" /> Reset Password
+              </>
+            )}
           </Button>
         </form>
       </CardContent>

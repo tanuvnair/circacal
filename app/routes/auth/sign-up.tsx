@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { z } from "zod";
+import {
+  EyeIcon,
+  EyeOffIcon,
+  LockIcon,
+  MailIcon,
+  UserIcon,
+  UserPlusIcon,
+} from "lucide-react";
 import { authClient } from "~/lib/auth.client";
 import { Alert, AlertDescription } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -17,7 +25,12 @@ import {
   FieldGroup,
   FieldLabel,
 } from "~/components/ui/field";
-import { Input } from "~/components/ui/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "~/components/ui/input-group";
 
 const signUpSchema = z.object({
   name: z
@@ -42,6 +55,7 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -95,46 +109,78 @@ export default function SignUp() {
               <AlertDescription>{serverError}</AlertDescription>
             </Alert>
           )}
-          <FieldGroup className="gap-4">
+          <FieldGroup>
             <Field data-invalid={fieldErrors.name ? true : undefined}>
               <FieldLabel htmlFor="name">Name</FieldLabel>
-              <Input
-                id="name"
-                type="text"
-                placeholder="John Doe"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                aria-invalid={!!fieldErrors.name}
-              />
+              <InputGroup>
+                <InputGroupInput
+                  id="name"
+                  type="text"
+                  placeholder="John Doe"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  aria-invalid={!!fieldErrors.name}
+                />
+                <InputGroupAddon>
+                  <UserIcon />
+                </InputGroupAddon>
+              </InputGroup>
               <FieldError>{fieldErrors.name}</FieldError>
             </Field>
             <Field data-invalid={fieldErrors.email ? true : undefined}>
               <FieldLabel htmlFor="email">Email</FieldLabel>
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                aria-invalid={!!fieldErrors.email}
-              />
+              <InputGroup>
+                <InputGroupInput
+                  id="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  aria-invalid={!!fieldErrors.email}
+                />
+                <InputGroupAddon>
+                  <MailIcon />
+                </InputGroupAddon>
+              </InputGroup>
               <FieldError>{fieldErrors.email}</FieldError>
             </Field>
             <Field data-invalid={fieldErrors.password ? true : undefined}>
               <FieldLabel htmlFor="password">Password</FieldLabel>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                aria-invalid={!!fieldErrors.password}
-              />
+              <InputGroup>
+                <InputGroupInput
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  aria-invalid={!!fieldErrors.password}
+                />
+                <InputGroupAddon>
+                  <LockIcon />
+                </InputGroupAddon>
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    size="icon-xs"
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                    onClick={() => setShowPassword((v) => !v)}
+                  >
+                    {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
               <FieldError>{fieldErrors.password}</FieldError>
             </Field>
           </FieldGroup>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Creating account..." : "Sign Up"}
+            {loading ? (
+              "Creating account..."
+            ) : (
+              <>
+                <UserPlusIcon data-icon="inline-start" /> Sign Up
+              </>
+            )}
           </Button>
         </form>
       </CardContent>
