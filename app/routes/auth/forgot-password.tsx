@@ -4,6 +4,7 @@ import { z } from "zod";
 import { MailIcon, SendIcon } from "lucide-react";
 import { authClient } from "~/lib/auth.client";
 import { Button } from "~/components/ui/button";
+import { Alert, AlertDescription } from "~/components/ui/alert";
 import {
   CardContent,
   CardDescription,
@@ -51,7 +52,7 @@ export default function ForgotPassword() {
 
     await authClient.requestPasswordReset({
       email,
-      redirectTo: "/reset-password",
+      redirectTo: window.location.origin + "/reset-password",
     });
 
     setSubmitted(true);
@@ -116,11 +117,13 @@ export default function ForgotPassword() {
           </CardFooter>
         </>
       ) : (
-        <CardContent className="space-y-4">
-          <p className="text-sm text-muted-foreground">
-            If an account with that email exists, we&apos;ve sent a password
-            reset link. Please check your inbox.
-          </p>
+        <CardContent className="flex flex-col gap-4">
+          <Alert>
+            <AlertDescription>
+              If an account with that email exists, we&apos;ve sent a password
+              reset link. Please check your inbox.
+            </AlertDescription>
+          </Alert>
           <Link
             to="/sign-in"
             className="text-sm text-primary underline underline-offset-4"

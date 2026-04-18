@@ -32,17 +32,26 @@ import {
   InputGroupInput,
 } from "~/components/ui/input-group";
 
-const signUpSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .min(2, "Name must be at least 2 characters"),
-  email: z.string().min(1, "Email is required").email("Invalid email address"),
-  password: z
-    .string()
-    .min(1, "Password is required")
-    .min(8, "Password must be at least 8 characters"),
-});
+const signUpSchema = z
+  .object({
+    name: z
+      .string()
+      .min(1, "Name is required")
+      .min(2, "Name must be at least 2 characters"),
+    email: z
+      .string()
+      .min(1, "Email is required")
+      .email("Invalid email address"),
+    password: z
+      .string()
+      .min(1, "Password is required")
+      .min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string().min(1, "Please confirm your password"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
 type FieldErrors = Partial<Record<keyof z.infer<typeof signUpSchema>, string>>;
 
@@ -55,17 +64,25 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [verificationNotice, setVerificationNotice] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFieldErrors({});
     setServerError("");
 
-    const result = signUpSchema.safeParse({ name, email, password });
+    const result = signUpSchema.safeParse({
+      name,
+      email,
+      password,
+      confirmPassword,
+    });
     if (!result.success) {
       const errors: FieldErrors = {};
       for (const issue of result.error.issues) {
@@ -81,8 +98,20 @@ export default function SignUp() {
     await authClient.signUp.email(
       { name, email, password },
       {
-        onSuccess: () => {
-          navigate("/dashboard");
+        onSuccess: (ctx) => {
+          if (ctx.data?.emailVerificationRequired) {
+            setServerError("");
+            setVerificationNotice(
+              "Check your email to verify your account before signing in.",
+            );
+            setLoading(false);
+            setTimeout(() => {
+              setVerificationNotice("");
+              navigate("/sign-in");
+            }, 2000);
+          } else {
+            navigate("/dashboard");
+          }
         },
         onError: (ctx) => {
           setServerError(ctx.error.message);
@@ -99,6 +128,11 @@ export default function SignUp() {
         <CardDescription>Create your CircaCal account</CardDescription>
       </CardHeader>
       <CardContent>
+        {verificationNotice && (
+          <Alert variant="success">
+            <AlertDescription>{verificationNotice}</AlertDescription>
+          </Alert>
+        )}
         <form
           onSubmit={handleSubmit}
           noValidate
@@ -171,6 +205,38 @@ export default function SignUp() {
                 </InputGroupAddon>
               </InputGroup>
               <FieldError>{fieldErrors.password}</FieldError>
+            </Field>
+            <Field
+              data-invalid={fieldErrors.confirmPassword ? true : undefined}
+            >
+              <FieldLabel htmlFor="confirmPassword">
+                Confirm Password
+              </FieldLabel>
+              <InputGroup>
+                <InputGroupInput
+                  id="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  aria-invalid={!!fieldErrors.confirmPassword}
+                />
+                <InputGroupAddon>
+                  <LockIcon />
+                </InputGroupAddon>
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    size="icon-xs"
+                    aria-label={
+                      showConfirmPassword ? "Hide password" : "Show password"
+                    }
+                    onClick={() => setShowConfirmPassword((v) => !v)}
+                  >
+                    {showConfirmPassword ? <EyeOffIcon /> : <EyeIcon />}
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
+              <FieldError>{fieldErrors.confirmPassword}</FieldError>
             </Field>
           </FieldGroup>
           <Button type="submit" className="w-full" disabled={loading}>

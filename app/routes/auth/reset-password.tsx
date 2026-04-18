@@ -56,6 +56,7 @@ export default function ResetPassword() {
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   if (!token || tokenError) {
     return (
@@ -100,7 +101,11 @@ export default function ResetPassword() {
       { newPassword: password, token },
       {
         onSuccess: () => {
-          navigate("/sign-in");
+          setSuccess(true);
+          setLoading(false);
+          setTimeout(() => {
+            navigate("/sign-in");
+          }, 2000);
         },
         onError: (ctx) => {
           setServerError(ctx.error.message);
@@ -117,88 +122,96 @@ export default function ResetPassword() {
         <CardDescription>Enter your new password</CardDescription>
       </CardHeader>
       <CardContent>
-        <form
-          onSubmit={handleSubmit}
-          noValidate
-          className="flex flex-col gap-6"
-        >
-          {serverError && (
-            <Alert variant="destructive">
-              <AlertDescription>{serverError}</AlertDescription>
-            </Alert>
-          )}
-          <FieldGroup>
-            <Field data-invalid={fieldErrors.password ? true : undefined}>
-              <FieldLabel htmlFor="password">New Password</FieldLabel>
-              <InputGroup>
-                <InputGroupInput
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  aria-invalid={!!fieldErrors.password}
-                />
-                <InputGroupAddon>
-                  <LockIcon />
-                </InputGroupAddon>
-                <InputGroupAddon align="inline-end">
-                  <InputGroupButton
-                    size="icon-xs"
-                    aria-label={
-                      showPassword ? "Hide password" : "Show password"
-                    }
-                    onClick={() => setShowPassword((v) => !v)}
-                  >
-                    {showPassword ? <EyeOffIcon /> : <EyeIcon />}
-                  </InputGroupButton>
-                </InputGroupAddon>
-              </InputGroup>
-              <FieldError>{fieldErrors.password}</FieldError>
-            </Field>
-            <Field
-              data-invalid={fieldErrors.confirmPassword ? true : undefined}
-            >
-              <FieldLabel htmlFor="confirmPassword">
-                Confirm Password
-              </FieldLabel>
-              <InputGroup>
-                <InputGroupInput
-                  id="confirmPassword"
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder="••••••••"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  aria-invalid={!!fieldErrors.confirmPassword}
-                />
-                <InputGroupAddon>
-                  <LockIcon />
-                </InputGroupAddon>
-                <InputGroupAddon align="inline-end">
-                  <InputGroupButton
-                    size="icon-xs"
-                    aria-label={
-                      showConfirmPassword ? "Hide password" : "Show password"
-                    }
-                    onClick={() => setShowConfirmPassword((v) => !v)}
-                  >
-                    {showConfirmPassword ? <EyeOffIcon /> : <EyeIcon />}
-                  </InputGroupButton>
-                </InputGroupAddon>
-              </InputGroup>
-              <FieldError>{fieldErrors.confirmPassword}</FieldError>
-            </Field>
-          </FieldGroup>
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? (
-              "Resetting..."
-            ) : (
-              <>
-                <ShieldCheckIcon data-icon="inline-start" /> Reset Password
-              </>
+        {success ? (
+          <Alert variant="success">
+            <AlertDescription>
+              Your password has been reset. You can now sign in.
+            </AlertDescription>
+          </Alert>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            noValidate
+            className="flex flex-col gap-6"
+          >
+            {serverError && (
+              <Alert variant="destructive">
+                <AlertDescription>{serverError}</AlertDescription>
+              </Alert>
             )}
-          </Button>
-        </form>
+            <FieldGroup>
+              <Field data-invalid={fieldErrors.password ? true : undefined}>
+                <FieldLabel htmlFor="password">New Password</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    aria-invalid={!!fieldErrors.password}
+                  />
+                  <InputGroupAddon>
+                    <LockIcon />
+                  </InputGroupAddon>
+                  <InputGroupAddon align="inline-end">
+                    <InputGroupButton
+                      size="icon-xs"
+                      aria-label={
+                        showPassword ? "Hide password" : "Show password"
+                      }
+                      onClick={() => setShowPassword((v) => !v)}
+                    >
+                      {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+                    </InputGroupButton>
+                  </InputGroupAddon>
+                </InputGroup>
+                <FieldError>{fieldErrors.password}</FieldError>
+              </Field>
+              <Field
+                data-invalid={fieldErrors.confirmPassword ? true : undefined}
+              >
+                <FieldLabel htmlFor="confirmPassword">
+                  Confirm Password
+                </FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    id="confirmPassword"
+                    type={showConfirmPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    aria-invalid={!!fieldErrors.confirmPassword}
+                  />
+                  <InputGroupAddon>
+                    <LockIcon />
+                  </InputGroupAddon>
+                  <InputGroupAddon align="inline-end">
+                    <InputGroupButton
+                      size="icon-xs"
+                      aria-label={
+                        showConfirmPassword ? "Hide password" : "Show password"
+                      }
+                      onClick={() => setShowConfirmPassword((v) => !v)}
+                    >
+                      {showConfirmPassword ? <EyeOffIcon /> : <EyeIcon />}
+                    </InputGroupButton>
+                  </InputGroupAddon>
+                </InputGroup>
+                <FieldError>{fieldErrors.confirmPassword}</FieldError>
+              </Field>
+            </FieldGroup>
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? (
+                "Resetting..."
+              ) : (
+                <>
+                  <ShieldCheckIcon data-icon="inline-start" /> Reset Password
+                </>
+              )}
+            </Button>
+          </form>
+        )}
       </CardContent>
     </>
   );
