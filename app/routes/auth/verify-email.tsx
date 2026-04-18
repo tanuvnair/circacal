@@ -4,8 +4,8 @@ import { Button } from "~/components/ui/button";
 import { CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { useNavigate, useSearchParams, useLoaderData } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
-import type { LoaderResult } from "~/types/loader-result";
 import { authClient } from "~/lib/auth.client";
+import type { LoaderResult } from "~/types/handler-result";
 
 export function meta() {
   return [{ title: "Verify Email - CircaCal" }];
@@ -17,20 +17,23 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (!token) {
     const result: LoaderResult = {
       status: "error",
-      message: "Missing verification token.",
+      message: "Verification token is missing.",
     };
+
     return result;
   }
 
   try {
     await authClient.verifyEmail({ query: { token } });
     const result: LoaderResult = { status: "success" };
+
     return result;
   } catch (e: any) {
     const result: LoaderResult = {
       status: "error",
-      message: e?.message || "Verification failed.",
+      message: "Verification token is invalid or expired.",
     };
+
     return result;
   }
 }
