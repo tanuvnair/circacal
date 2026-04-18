@@ -123,7 +123,7 @@ export default function ResetPassword() {
       </CardHeader>
       <CardContent>
         {success ? (
-          <Alert variant="success">
+          <Alert>
             <AlertDescription>
               Your password has been reset. You can now sign in.
             </AlertDescription>

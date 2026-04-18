@@ -129,7 +129,7 @@ export default function SignUp() {
       </CardHeader>
       <CardContent>
         {verificationNotice && (
-          <Alert variant="success">
+          <Alert>
             <AlertDescription>{verificationNotice}</AlertDescription>
           </Alert>
         )}
