@@ -4,7 +4,8 @@ import { z } from "zod";
 import { MailIcon, SendIcon } from "lucide-react";
 import { authClient } from "~/lib/auth.client";
 import { Button } from "~/components/ui/button";
-import { Alert, AlertDescription } from "~/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
+import { CheckCircle } from "lucide-react";
 import {
   CardContent,
   CardDescription,
@@ -119,6 +120,8 @@ export default function ForgotPassword() {
       ) : (
         <CardContent className="flex flex-col gap-4">
           <Alert>
+            <CheckCircle />
+            <AlertTitle>Reset Link Sent</AlertTitle>
             <AlertDescription>
               If an account with that email exists, we&apos;ve sent a password
               reset link. Please check your inbox.

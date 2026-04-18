@@ -9,7 +9,8 @@ import {
   MailIcon,
 } from "lucide-react";
 import { authClient } from "~/lib/auth.client";
-import { Alert, AlertDescription } from "~/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
+import { AlertTriangle } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import {
   CardContent,
@@ -97,6 +98,8 @@ export default function SignIn() {
         >
           {serverError && (
             <Alert variant="destructive">
+              <AlertTriangle className="text-destructive" />
+              <AlertTitle>Error</AlertTitle>
               <AlertDescription>{serverError}</AlertDescription>
             </Alert>
           )}

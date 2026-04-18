@@ -10,7 +10,8 @@ import {
   UserPlusIcon,
 } from "lucide-react";
 import { authClient } from "~/lib/auth.client";
-import { Alert, AlertDescription } from "~/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
+import { CheckCircle, AlertTriangle } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import {
   CardContent,
@@ -108,7 +109,7 @@ export default function SignUp() {
             setTimeout(() => {
               setVerificationNotice("");
               navigate("/sign-in");
-            }, 2000);
+            }, 5000);
           } else {
             navigate("/dashboard");
           }
@@ -130,6 +131,8 @@ export default function SignUp() {
       <CardContent>
         {verificationNotice && (
           <Alert>
+            <CheckCircle />
+            <AlertTitle>Email Verification Required</AlertTitle>
             <AlertDescription>{verificationNotice}</AlertDescription>
           </Alert>
         )}
@@ -140,6 +143,8 @@ export default function SignUp() {
         >
           {serverError && (
             <Alert variant="destructive">
+              <AlertTriangle className="text-destructive" />
+              <AlertTitle>Error</AlertTitle>
               <AlertDescription>{serverError}</AlertDescription>
             </Alert>
           )}

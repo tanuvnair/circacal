@@ -8,11 +8,13 @@ export const auth = betterAuth({
     provider: "postgresql",
   }),
   emailVerification: {
-    sendVerificationEmail: async ({ user, url }) => {
-      await sendEmail({
+    sendVerificationEmail: async ({ user, token }) => {
+      const verificationLink = `${process.env.BASE_URL || "http://localhost:3000"}/verify-email?token=${token}`;
+
+      void sendEmail({
         to: user.email,
         subject: "Verify your email address",
-        text: `Click the link to verify your email: ${url}`,
+        text: `Click the link to verify your email: ${verificationLink}`,
       });
     },
   },
@@ -20,7 +22,7 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: true,
     sendResetPassword: async ({ user, url }) => {
-      await sendEmail({
+      void sendEmail({
         to: user.email,
         subject: "Reset your password",
         text: `Click the link to reset your password: ${url}`,
