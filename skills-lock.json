@@ -26,6 +26,11 @@
       "sourceType": "github",
       "computedHash": "fa7a76e45a1f9632e6d63e92b476cf566e64f6e93a2c8ee00bc77b4a74008fbd"
     },
+    "react-router-v7-expert": {
+      "source": "smithery.ai",
+      "sourceType": "well-known",
+      "computedHash": "8dfbc08729a1dbd0b647d7870179ecd3dc074558864f7be2c922959f868da45e"
+    },
     "shadcn": {
       "source": "shadcn/ui",
       "sourceType": "github",
