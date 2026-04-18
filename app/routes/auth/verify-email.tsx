@@ -2,9 +2,9 @@ import { CheckCircle, AlertTriangle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
 import { CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { useNavigate, useSearchParams, useLoaderData } from "react-router";
+import { useNavigate, useLoaderData } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
-import { authClient } from "~/lib/auth.client";
+import { auth } from "~/lib/auth.server";
 import type { LoaderResult } from "~/types/handler-result";
 
 export function meta() {
@@ -19,21 +19,21 @@ export async function loader({ request }: LoaderFunctionArgs) {
       status: "error",
       message: "Verification token is missing.",
     };
-
     return result;
   }
 
   try {
-    await authClient.verifyEmail({ query: { token } });
-    const result: LoaderResult = { status: "success" };
-
+    await auth.api.verifyEmail({ query: { token } });
+    const result: LoaderResult = {
+      status: "success",
+      message: "Your email has been verified. You can now sign in.",
+    };
     return result;
   } catch (e: any) {
     const result: LoaderResult = {
       status: "error",
       message: "Verification token is invalid or expired.",
     };
-
     return result;
   }
 }
@@ -52,18 +52,13 @@ export default function VerifyEmail() {
           <Alert>
             <CheckCircle />
             <AlertTitle>Email Verified</AlertTitle>
-            <AlertDescription>
-              Your email has been verified, you may sign in now.
-            </AlertDescription>
+            <AlertDescription>{data.message}</AlertDescription>
           </Alert>
         ) : (
           <Alert variant="destructive">
             <AlertTriangle className="text-destructive" />
             <AlertTitle>Verification Failed</AlertTitle>
-            <AlertDescription>
-              {data.message ||
-                "Verification failed. Please try again or request a new link."}
-            </AlertDescription>
+            <AlertDescription>{data.message}</AlertDescription>
           </Alert>
         )}
 
