@@ -255,7 +255,6 @@ export default function BodyMetrics() {
         datePickerTo={datePickerTo}
         timeZone={timeZone}
         tableCaptionId={tableCaptionId}
-        mutationError={mutationError}
         onEdit={setEditRow}
         onDelete={setDeleteRow}
       />
@@ -269,6 +268,7 @@ export default function BodyMetrics() {
           }
         }}
         fetcher={mutationFetcher}
+        errorMessage={editRow !== null ? mutationError : null}
       />
 
       <BodyMetricDeleteDialog
@@ -280,6 +280,7 @@ export default function BodyMetrics() {
           }
         }}
         fetcher={mutationFetcher}
+        errorMessage={deleteRow !== null ? mutationError : null}
       />
     </div>
   );

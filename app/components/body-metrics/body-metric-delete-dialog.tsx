@@ -19,11 +19,13 @@ export function BodyMetricDeleteDialog({
   open,
   onOpenChange,
   fetcher,
+  errorMessage,
 }: {
   row: BodyMetricHistoryRow | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   fetcher: MutationFetcher;
+  errorMessage: string | null;
 }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -44,6 +46,11 @@ export function BodyMetricDeleteDialog({
                 ? ` · ${row.weight} ${row.weightUnit?.toLowerCase() ?? ""}`
                 : ""}
             </p>
+            {errorMessage ? (
+              <p className="text-sm text-destructive" role="alert">
+                {errorMessage}
+              </p>
+            ) : null}
             <DialogFooter>
               <Button
                 type="button"

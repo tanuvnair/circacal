@@ -16,7 +16,6 @@ export function BodyMetricHistorySection({
   datePickerTo,
   timeZone,
   tableCaptionId,
-  mutationError,
   onEdit,
   onDelete,
 }: {
@@ -31,7 +30,6 @@ export function BodyMetricHistorySection({
   datePickerTo: string | null;
   timeZone: string;
   tableCaptionId: string;
-  mutationError: string | null;
   onEdit: (row: BodyMetricHistoryRow) => void;
   onDelete: (row: BodyMetricHistoryRow) => void;
 }) {
@@ -55,9 +53,7 @@ export function BodyMetricHistorySection({
           History
         </h2>
         <p className="text-pretty text-sm text-muted-foreground">
-          Date range uses your saved time zone ({timeZone}). Query parameters
-          dateFrom and dateTo are ISO UTC instants (for example
-          2026-04-30T18:30:00.000Z).
+          Date range uses your saved time zone ({timeZone}).
         </p>
       </div>
 
@@ -67,12 +63,6 @@ export function BodyMetricHistorySection({
         pageSize={pageSize}
         timeZone={timeZone}
       />
-
-      {mutationError ? (
-        <p className="text-sm text-destructive" role="alert">
-          {mutationError}
-        </p>
-      ) : null}
 
       <p className="text-sm text-muted-foreground">
         {total === 0
