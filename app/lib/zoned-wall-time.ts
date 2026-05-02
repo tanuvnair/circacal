@@ -119,6 +119,11 @@ export function endOfZonedCalendarDayUtc(
   return zonedWallTimeToUtc(y, m, d, 23, 59, 59, 999, timeZone);
 }
 
+/** Calendar date string (YYYY-MM-DD) as UTC midnight for Prisma `@db.Date` fields. */
+export function isoDateOnlyToUtcMidnight(ymd: string): Date {
+  return new Date(`${ymd}T00:00:00.000Z`);
+}
+
 const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
 
 /**
