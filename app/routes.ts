@@ -21,6 +21,8 @@ export default [
   // App (protected — auth guard in layout loader)
   layout("routes/app/layout.tsx", [
     route("dashboard", "routes/app/dashboard.tsx"),
+    route("statistics", "routes/app/statistics.tsx"),
+    route("settings", "routes/app/settings.tsx"),
   ]),
 
   // API

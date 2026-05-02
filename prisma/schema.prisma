@@ -16,8 +16,10 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  sessions Session[]
-  accounts Account[]
+  sessions           Session[]
+  accounts           Account[]
+  dailyEnergyRecords DailyEnergyRecord[]
+  bodyMetricLogs     BodyMetricLog[]
 
   @@map("users")
 }
@@ -64,4 +66,57 @@ model Verification {
   updatedAt  DateTime? @updatedAt
 
   @@map("verifications")
+}
+
+enum Estimate {
+  DEFICIT     @map("deficit")
+  MAINTENANCE @map("maintenance")
+  SURPLUS     @map("surplus")
+}
+
+model DailyEnergyRecord {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  date           DateTime @db.Date
+  energyEstimate Estimate
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, date])
+  @@map("daily_energy_records")
+}
+
+enum WeightUnit {
+  KG @map("kg")
+  LB @map("lb")
+}
+
+enum HeightUnit {
+  CM @map("cm")
+  IN @map("in")
+}
+
+model BodyMetricLog {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  weight     Decimal?    @db.Decimal(6, 2)
+  weightUnit WeightUnit?
+
+  height     Decimal?    @db.Decimal(6, 2)
+  heightUnit HeightUnit?
+
+  notes String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, createdAt])
+  @@map("body_metric_logs")
 }
