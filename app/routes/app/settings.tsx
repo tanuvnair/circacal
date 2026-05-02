@@ -1,11 +1,29 @@
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
+import { useState } from "react";
+import { SearchableCombobox } from "~/components/searchable-combobox";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "~/components/ui/field";
+import { Button } from "~/components/ui/button";
+import { timezones } from "~/constants/timezones";
+
+function defaultTimeZone(): string {
+  const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  return timezones.some((t) => t.value === detected)
+    ? detected
+    : "America/Los_Angeles";
+}
 
 export function meta() {
   return [{ title: "Settings - CircaCal" }];
 }
 
 export default function Settings() {
+  const [timeZone, setTimeZone] = useState(defaultTimeZone);
+
   return (
     <div className="flex flex-col gap-4 sm:gap-6">
       <div className="flex flex-col gap-1">
@@ -13,53 +31,29 @@ export default function Settings() {
           Settings
         </h1>
         <p className="text-pretty text-sm text-muted-foreground">
-          Body metrics and preferences. Nothing is saved yet—this screen is
-          UI-only for now.
+          Setup your account preferences.
         </p>
       </div>
 
-      <div className="flex flex-col gap-5">
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="settings-weight">Current weight</Label>
-          <Input
-            id="settings-weight"
-            name="weight"
-            type="text"
-            inputMode="decimal"
-            autoComplete="off"
-            placeholder="e.g. 72.5"
-          />
-          <p className="text-pretty text-xs text-muted-foreground">
-            Kilograms for now; unit settings can come later.
-          </p>
-        </div>
+      <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="settings-timezone-trigger">Time zone</FieldLabel>
+          <FieldDescription>Used for dates and daily resets.</FieldDescription>
 
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="settings-height">Height (optional)</Label>
-          <Input
-            id="settings-height"
-            name="height"
-            type="text"
-            inputMode="decimal"
-            autoComplete="off"
-            placeholder="e.g. 175"
-          />
-          <p className="text-pretty text-xs text-muted-foreground">
-            Centimeters.
-          </p>
-        </div>
+          <FieldContent className="gap-3">
+            <SearchableCombobox
+              id="settings-timezone-trigger"
+              value={timeZone}
+              onValueChange={setTimeZone}
+              options={timezones}
+              searchPlaceholder="Search time zone..."
+              emptyMessage="No time zone found."
+            />
+          </FieldContent>
+        </Field>
 
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="settings-notes">Notes (optional)</Label>
-          <Input
-            id="settings-notes"
-            name="notes"
-            type="text"
-            autoComplete="off"
-            placeholder="e.g. goal weight, injuries, context"
-          />
-        </div>
-      </div>
+        <Button type="button">Save Settings</Button>
+      </FieldGroup>
     </div>
   );
 }

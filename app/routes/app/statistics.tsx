@@ -46,7 +46,10 @@ export default function Statistics() {
             </p>
           </CardContent>
         </Card>
-        <Card className="min-w-0 min-[480px]:col-span-2 lg:col-span-1" size="sm">
+        <Card
+          className="min-w-0 min-[480px]:col-span-2 lg:col-span-1"
+          size="sm"
+        >
           <CardHeader>
             <CardTitle className="text-base sm:text-lg">Insights</CardTitle>
             <CardDescription>Patterns and streaks</CardDescription>

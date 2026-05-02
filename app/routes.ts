@@ -22,6 +22,7 @@ export default [
   layout("routes/app/layout.tsx", [
     route("dashboard", "routes/app/dashboard.tsx"),
     route("statistics", "routes/app/statistics.tsx"),
+    route("body-metrics", "routes/app/body-metrics.tsx"),
     route("settings", "routes/app/settings.tsx"),
   ]),
 

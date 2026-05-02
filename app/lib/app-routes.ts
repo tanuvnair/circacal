@@ -1,4 +1,8 @@
-export type AppNavTabId = "dashboard" | "statistics" | "settings";
+export type AppNavTabId =
+  | "dashboard"
+  | "statistics"
+  | "bodyMetrics"
+  | "settings";
 
 export interface AppNavItem {
   readonly id: AppNavTabId;
@@ -11,6 +15,7 @@ export interface AppNavItem {
 export const APP_NAV_ITEMS: readonly AppNavItem[] = [
   { id: "dashboard", segment: "dashboard", label: "Dashboard" },
   { id: "statistics", segment: "statistics", label: "Statistics" },
+  { id: "bodyMetrics", segment: "body-metrics", label: "Body Metrics" },
   { id: "settings", segment: "settings", label: "Settings" },
 ];
 

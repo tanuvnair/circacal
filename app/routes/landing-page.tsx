@@ -17,7 +17,7 @@ export function meta({}: Route.MetaArgs) {
     {
       name: "description",
       content:
-        "Each day, record whether you ate in a rough deficit, at maintenance, or in a surplus. Your pick resets nightly; statistics and settings help you stay honest over time.",
+        "Each day, record whether you ate in a rough deficit, at maintenance, or in a surplus. Your pick resets nightly; statistics and body metrics help you stay honest over time.",
     },
   ];
 }
@@ -105,7 +105,7 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                Add your weight and related details in settings to unlock more insights. We'll use your numbers to provide better trends, context, and long-term progress as you keep logging days.
+                Add your weight and related details under Body metrics to unlock more insights. We'll use your numbers to provide better trends, context, and long-term progress as you keep logging days.
               </p>
          
             </CardContent>
