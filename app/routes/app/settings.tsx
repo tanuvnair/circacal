@@ -129,7 +129,7 @@ export default function Settings() {
           </Field>
 
           <Button type="submit" disabled={isSaving}>
-            {isSaving ? "Saving…" : "Save Settings"}
+            {isSaving ? "Saving…" : "Save settings"}
           </Button>
         </FieldGroup>
       </fetcher.Form>
