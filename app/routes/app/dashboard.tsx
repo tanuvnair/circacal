@@ -2,6 +2,12 @@ import {
   ArrowDownIcon,
   ArrowRightIcon,
   ArrowUpIcon,
+  Cake,
+  ChartNoAxesColumn,
+  ChartNoAxesColumnDecreasing,
+  ChartNoAxesColumnIncreasing,
+  Flame,
+  Meh,
   type LucideIcon,
 } from "lucide-react";
 import { useState } from "react";
@@ -46,25 +52,25 @@ const ESTIMATE_OPTIONS: {
   description: string;
 }[] = [
   {
-    Icon: ArrowDownIcon,
-    colorScheme: "negative",
-    value: "deficit",
-    label: "Deficit",
-    description: "Roughly ate under maintenance today.",
+    Icon: ChartNoAxesColumnIncreasing,
+    colorScheme: "positive",
+    value: "surplus",
+    label: "Surplus",
+    description: "Roughly ate over maintenance today.",
   },
   {
-    Icon: ArrowRightIcon,
+    Icon: ChartNoAxesColumn,
     colorScheme: "neutral",
     value: "maintenance",
     label: "Maintenance",
     description: "Roughly around maintenance today.",
   },
   {
-    Icon: ArrowUpIcon,
-    colorScheme: "positive",
-    value: "surplus",
-    label: "Surplus",
-    description: "Roughly ate over maintenance today.",
+    Icon: ChartNoAxesColumnDecreasing,
+    colorScheme: "negative",
+    value: "deficit",
+    label: "Deficit",
+    description: "Roughly ate under maintenance today.",
   },
 ];
 
@@ -137,7 +143,7 @@ export default function Dashboard() {
         </div>
 
         <p className="text-pretty text-xs text-muted-foreground">
-          One log per day. Resets at midnight.
+          One log per day. Resets at midnight according to your time zone.
         </p>
       </div>
     </div>

@@ -31,7 +31,7 @@ export default function Home() {
           <Button variant="ghost" size="sm" asChild>
             <Link to="/sign-in">Sign In</Link>
           </Button>
-          
+
           <Button size="sm" asChild>
             <Link to="/sign-up">
               Get Started <ArrowRightIcon data-icon="inline-end" />
@@ -105,9 +105,10 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                Add your weight and related details under Body metrics to unlock more insights. We'll use your numbers to provide better trends, context, and long-term progress as you keep logging days.
+                Add your weight and related details under Body metrics to unlock
+                more insights. We'll use your numbers to provide better trends,
+                context, and long-term progress as you keep logging days.
               </p>
-         
             </CardContent>
           </Card>
         </section>
