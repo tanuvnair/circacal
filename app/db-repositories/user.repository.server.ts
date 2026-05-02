@@ -11,3 +11,10 @@ export async function findUserByEmail(email: string) {
 export async function listUsers() {
   return prisma.user.findMany();
 }
+
+export async function updateUserTimeZone(userId: string, timeZone: string) {
+  return prisma.user.update({
+    where: { id: userId },
+    data: { timeZone },
+  });
+}

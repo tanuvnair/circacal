@@ -69,3 +69,12 @@ export const timezones: Timezone[] = [
   { value: "Pacific/Auckland", label: "(UTC+12:00) Auckland" },
   { value: "Pacific/Fiji", label: "(UTC+12:00) Fiji" },
 ];
+
+const ALLOWED_TIMEZONE_VALUES = new Set(
+  timezones.map((timezone) => timezone.value),
+);
+
+/** Returns true if `value` is an IANA zone from the app's picker list. */
+export function isAllowedTimeZone(value: string): boolean {
+  return ALLOWED_TIMEZONE_VALUES.has(value);
+}
