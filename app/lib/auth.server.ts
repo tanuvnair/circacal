@@ -1,5 +1,6 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { redirect } from "react-router";
 import { prisma } from "~/db/prisma.server";
 import { sendEmail } from "~/lib/email";
 
@@ -35,5 +36,21 @@ export const auth = betterAuth({
 });
 
 export async function getSession(request: Request) {
-  return auth.api.getSession({ headers: request.headers });
+  try {
+    return await auth.api.getSession({ headers: request.headers });
+  } catch (error) {
+    console.error("Failed to get session, clearing cookies:", error);
+
+    const headers = new Headers();
+    headers.append(
+      "Set-Cookie",
+      "better-auth.session_token=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax",
+    );
+    headers.append(
+      "Set-Cookie",
+      "better-auth.csrf_token=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax",
+    );
+
+    throw redirect("/sign-in", { headers });
+  }
 }
