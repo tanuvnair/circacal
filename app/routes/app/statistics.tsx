@@ -14,6 +14,7 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { redirect, useLoaderData } from "react-router";
 
 import type { Route } from "./+types/statistics";
+import { ESTIMATE_CONFIG } from "~/lib/estimate-config";
 import { Estimate } from "../../../generated/prisma/enums";
 import {
   countConsecutiveStreakDays,
@@ -254,29 +255,7 @@ const PERIOD_LABELS: Record<PeriodKey, string> = {
   all: "All time",
 };
 
-const ESTIMATE_COLORS: Record<
-  "deficit" | "maintenance" | "surplus",
-  { bg: string; text: string; barBg: string; icon: LucideIcon }
-> = {
-  deficit: {
-    bg: "bg-destructive/10 dark:bg-destructive/15",
-    text: "text-destructive",
-    barBg: "bg-destructive/60 dark:bg-destructive/50",
-    icon: ChartNoAxesColumnDecreasing,
-  },
-  maintenance: {
-    bg: "bg-primary/10 dark:bg-primary/15",
-    text: "text-primary dark:text-primary",
-    barBg: "bg-primary/50 dark:bg-primary/40",
-    icon: ChartNoAxesColumn,
-  },
-  surplus: {
-    bg: "bg-emerald-500/10 dark:bg-emerald-500/15",
-    text: "text-emerald-600 dark:text-emerald-400",
-    barBg: "bg-emerald-500/60 dark:bg-emerald-400/50",
-    icon: ChartNoAxesColumnIncreasing,
-  },
-};
+
 
 function pct(n: number, total: number): number {
   return total === 0 ? 0 : Math.round((n / total) * 100);
@@ -295,7 +274,7 @@ function EstimateCountCard({
   total: number;
   type: "deficit" | "maintenance" | "surplus";
 }) {
-  const colors = ESTIMATE_COLORS[type];
+  const colors = ESTIMATE_CONFIG[type];
   const Icon = colors.icon;
   const percentage = pct(count, total);
 
@@ -357,7 +336,7 @@ function EnergyBreakdownBar({ stats }: { stats: PeriodStats }) {
               key={seg.type}
               className={cn(
                 "h-full transition-all duration-500",
-                ESTIMATE_COLORS[seg.type].barBg,
+                ESTIMATE_CONFIG[seg.type].barBg,
               )}
               style={{ width: `${pct(seg.count, loggedDays)}%` }}
               title={`${seg.type}: ${seg.count} day${seg.count !== 1 ? "s" : ""}`}
@@ -382,7 +361,7 @@ function BreakdownLegend() {
           <div
             className={cn(
               "size-2.5 rounded-full",
-              ESTIMATE_COLORS[item.type].barBg,
+              ESTIMATE_CONFIG[item.type].barBg,
             )}
           />
           <span className="text-xs text-muted-foreground">{item.label}</span>
@@ -420,9 +399,9 @@ function InsightsCard({
       value: streak === 0 ? "No streak" : `${streak} day${streak !== 1 ? "s" : ""}`,
     },
     {
-      icon: mostFrequent ? ESTIMATE_COLORS[mostFrequent].icon : ChartNoAxesColumn,
+      icon: mostFrequent ? ESTIMATE_CONFIG[mostFrequent].icon : ChartNoAxesColumn,
       iconClass: mostFrequent
-        ? ESTIMATE_COLORS[mostFrequent].text
+        ? ESTIMATE_CONFIG[mostFrequent].text
         : "text-muted-foreground",
       label: "Most frequent",
       value: mostFrequent
@@ -741,7 +720,7 @@ function RecentDaysStrip({
             key={e.date}
             className={cn(
               "h-6 flex-1 rounded-sm transition-colors",
-              ESTIMATE_COLORS[e.estimate].barBg,
+              ESTIMATE_CONFIG[e.estimate].barBg,
             )}
             title={`${e.date}: ${e.estimate}`}
           />

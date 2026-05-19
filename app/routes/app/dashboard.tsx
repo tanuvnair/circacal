@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { redirect, useFetcher, useLoaderData } from "react-router";
 
 import type { Route } from "./+types/dashboard";
+import { ESTIMATE_CONFIG, type BalanceEstimate } from "~/lib/estimate-config";
 import { Estimate } from "../../../generated/prisma/enums";
 import {
   findDailyEnergyRecordForUserDate,
@@ -28,82 +29,7 @@ export function meta() {
   return [{ title: "Dashboard - CircaCal" }];
 }
 
-type BalanceEstimate = "deficit" | "maintenance" | "surplus";
-
-const PRISMA_TO_BALANCE: Record<Estimate, BalanceEstimate> = {
-  DEFICIT: "deficit",
-  MAINTENANCE: "maintenance",
-  SURPLUS: "surplus",
-};
-
-const BALANCE_TO_PRISMA: Record<BalanceEstimate, Estimate> = {
-  deficit: Estimate.DEFICIT,
-  maintenance: Estimate.MAINTENANCE,
-  surplus: Estimate.SURPLUS,
-};
-
-function isBalanceEstimate(value: string): value is BalanceEstimate {
-  return (
-    value === "deficit" ||
-    value === "maintenance" ||
-    value === "surplus"
-  );
-}
-
-type EstimateColorScheme = "negative" | "neutral" | "positive";
-
-const ESTIMATE_SCHEME_CARD: Record<
-  EstimateColorScheme,
-  { base: string; selected: string; icon: string }
-> = {
-  negative: {
-    base: "border-destructive/30 bg-destructive/5 hover:bg-destructive/10",
-    selected: "border-destructive bg-destructive/15 ring-2 ring-destructive/25",
-    icon: "text-destructive",
-  },
-  neutral: {
-    base: "border-border bg-muted/35 hover:bg-muted/55",
-    selected: "border-primary/55 bg-primary/10 ring-2 ring-primary/25",
-    icon: "text-muted-foreground",
-  },
-  positive: {
-    base: "border-emerald-600/40 bg-emerald-500/10 hover:bg-emerald-500/16 dark:border-emerald-500/45 dark:bg-emerald-500/12 dark:hover:bg-emerald-500/18",
-    selected:
-      "border-emerald-600 bg-emerald-500/20 ring-2 ring-emerald-500/35 dark:border-emerald-400 dark:bg-emerald-500/18 dark:ring-emerald-400/35",
-    icon: "text-emerald-600 dark:text-emerald-400",
-  },
-};
-
-const ESTIMATE_OPTIONS: {
-  Icon: LucideIcon;
-  colorScheme: EstimateColorScheme;
-  value: BalanceEstimate;
-  label: string;
-  description: string;
-}[] = [
-  {
-    Icon: ChartNoAxesColumnIncreasing,
-    colorScheme: "positive",
-    value: "surplus",
-    label: "Surplus",
-    description: "Roughly ate over maintenance today.",
-  },
-  {
-    Icon: ChartNoAxesColumn,
-    colorScheme: "neutral",
-    value: "maintenance",
-    label: "Maintenance",
-    description: "Roughly around maintenance today.",
-  },
-  {
-    Icon: ChartNoAxesColumnDecreasing,
-    colorScheme: "negative",
-    value: "deficit",
-    label: "Deficit",
-    description: "Roughly ate under maintenance today.",
-  },
-];
-
+const ESTIMATE_KEYS: BalanceEstimate[] = ["surplus", "maintenance", "deficit"];
 function formatTimeLeftUntil(nextMidnightUtcMs: number, nowMs: number): string {
   const ms = Math.max(0, nextMidnightUtcMs - nowMs);
   if (ms === 0) {
@@ -159,6 +85,12 @@ export async function loader({ request }: Route.LoaderArgs) {
       ? new Date(endToday.getTime() + 1).toISOString()
       : null;
 
+  const PRISMA_TO_BALANCE: Record<Estimate, BalanceEstimate> = {
+    DEFICIT: "deficit",
+    MAINTENANCE: "maintenance",
+    SURPLUS: "surplus",
+  };
+
   return {
     estimate: row ? PRISMA_TO_BALANCE[row.energyEstimate] : null,
     todayLongLabel,
@@ -178,17 +110,27 @@ export async function action({ request }: Route.ActionArgs) {
 
   const formData = await request.formData();
   const raw = formData.get("energyEstimate");
-  if (typeof raw !== "string" || !isBalanceEstimate(raw)) {
+  if (
+    typeof raw !== "string" ||
+    (raw !== "deficit" && raw !== "maintenance" && raw !== "surplus")
+  ) {
     return { ok: false as const, error: "Invalid estimate." };
   }
+  const estimate = raw as BalanceEstimate;
 
   const todayYmd = utcInstantToZonedDateOnly(new Date(), timeZone);
   const dateForDb = isoDateOnlyToUtcMidnight(todayYmd);
 
+  const BALANCE_TO_PRISMA: Record<BalanceEstimate, Estimate> = {
+    deficit: Estimate.DEFICIT,
+    maintenance: Estimate.MAINTENANCE,
+    surplus: Estimate.SURPLUS,
+  };
+
   await upsertDailyEnergyRecord(
     session.user.id,
     dateForDb,
-    BALANCE_TO_PRISMA[raw],
+    BALANCE_TO_PRISMA[estimate],
   );
 
   return { ok: true as const };
@@ -217,7 +159,7 @@ export default function Dashboard() {
   if (
     fetcher.state !== "idle" &&
     typeof pending === "string" &&
-    isBalanceEstimate(pending)
+    (pending === "deficit" || pending === "maintenance" || pending === "surplus")
   ) {
     displayEstimate = pending;
   }
@@ -267,37 +209,38 @@ export default function Dashboard() {
             role="radiogroup"
             aria-labelledby="estimate-label"
           >
-            {ESTIMATE_OPTIONS.map((opt) => {
-              const selected = displayEstimate === opt.value;
-              const scheme = ESTIMATE_SCHEME_CARD[opt.colorScheme];
+            {ESTIMATE_KEYS.map((key) => {
+              const selected = displayEstimate === key;
+              const config = ESTIMATE_CONFIG[key];
+              const Icon = config.icon;
               return (
                 <button
-                  key={opt.value}
+                  key={key}
                   type="submit"
                   name="energyEstimate"
-                  value={opt.value}
+                  value={key}
                   role="radio"
                   aria-checked={selected}
                   disabled={busy}
                   className={cn(
                     "cursor-pointer rounded-xl border px-4 py-3 text-start outline-none transition-colors select-none touch-manipulation focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:min-h-16",
                     "flex min-h-14 flex-row items-start gap-3 disabled:pointer-events-none disabled:opacity-60",
-                    selected ? scheme.selected : scheme.base,
+                    selected ? config.cardSelected : config.cardBase,
                   )}
                 >
                   <div
                     className={cn(
                       "mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-lg bg-background/80",
-                      scheme.icon,
+                      config.text,
                     )}
                     aria-hidden
                   >
-                    <opt.Icon className="size-5 stroke-[2]" />
+                    <Icon className="size-5 stroke-[2]" />
                   </div>
                   <div className="flex min-w-0 flex-col gap-0.5 text-left">
-                    <span className="text-base font-medium">{opt.label}</span>
+                    <span className="text-base font-medium">{config.label}</span>
                     <span className="text-pretty text-sm text-muted-foreground">
-                      {opt.description}
+                      {config.description}
                     </span>
                   </div>
                 </button>
