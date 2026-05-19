@@ -94,3 +94,15 @@ export async function deleteBodyMetricLog(userId: string, id: string) {
   });
   return result.count === 1;
 }
+
+/**
+ * Returns the N most recent body metric logs for a user, newest first.
+ * Used by the statistics page to show latest reading + delta.
+ */
+export async function getLatestBodyMetricLogs(userId: string, limit: number) {
+  return prisma.bodyMetricLog.findMany({
+    where: { userId },
+    orderBy: { createdAt: "desc" },
+    take: limit,
+  });
+}
