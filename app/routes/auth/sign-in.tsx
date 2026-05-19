@@ -77,7 +77,11 @@ export default function SignIn() {
           navigate("/dashboard");
         },
         onError: (ctx) => {
-          setServerError(ctx.error.message);
+          let message = ctx.error.message;
+          if (message.toLowerCase().includes("not verified")) {
+            message = "Your email is not verified. We've just sent you a new verification link, please check your inbox!";
+          }
+          setServerError(message);
           setLoading(false);
         },
       },

@@ -9,6 +9,8 @@ export const auth = betterAuth({
     provider: "postgresql",
   }),
   emailVerification: {
+    sendOnSignUp: true,
+    sendOnSignIn: true,
     sendVerificationEmail: async ({ user, token }) => {
       const verificationLink = `${process.env.BASE_URL || "http://localhost:3000"}/verify-email?token=${token}`;
 
@@ -31,6 +33,17 @@ export const auth = betterAuth({
     },
     onPasswordReset: async ({ user }) => {
       console.log(`Password for user ${user.email} has been reset.`);
+    },
+    onExistingUserSignUp: async ({ user }) => {
+      void sendEmail({
+        to: user.email,
+        subject: "CircaCal - Sign-up attempt",
+        text: `Someone (hopefully you!) tried to sign up for CircaCal with this email address, but an account already exists. 
+        
+If you have not verified your email yet, simply try to sign in at ${process.env.BASE_URL || "http://localhost:3000"}/sign-in and we will send you a new verification link.
+        
+If you forgot your password, you can reset it on the sign-in page.`,
+      });
     },
   },
 });
