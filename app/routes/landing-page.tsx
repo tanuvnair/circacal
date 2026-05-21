@@ -7,9 +7,12 @@ import {
   TrendingUpIcon,
 } from "lucide-react";
 import { CircaCalLogo } from "~/components/circacal-logo";
+import { ThemeToggle } from "~/components/theme-toggle";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
+
+
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -24,10 +27,13 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="flex items-center justify-between px-6 py-4">
+    <div className="flex min-h-screen flex-col bg-background text-foreground relative z-0">
+      <div className="absolute inset-0 shader-grid-bg"></div>
+      
+      <header className="flex items-center justify-between px-6 py-4 relative z-10">
         <CircaCalLogo to="/" className="flex-row gap-2" />
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <Button variant="ghost" size="sm" asChild>
             <Link to="/sign-in">Sign In</Link>
           </Button>
@@ -40,9 +46,9 @@ export default function Home() {
         </div>
       </header>
 
-      <Separator />
+      <Separator className="relative z-10 opacity-50" />
 
-      <main className="flex flex-1 flex-col items-center justify-center gap-16 px-4 py-16">
+      <main className="flex flex-1 flex-col items-center justify-center gap-16 px-4 py-16 relative z-10">
         <section className="flex max-w-2xl flex-col items-center gap-6 text-center">
           <div className="flex flex-col items-center gap-3">
             <CircaCalLogo to="/" iconOnly={true} />
@@ -70,8 +76,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="grid w-full max-w-3xl gap-4 sm:grid-cols-3">
-          <Card>
+        <section className="grid w-full max-w-3xl gap-6 sm:grid-cols-3">
+          <Card className="relative overflow-hidden bg-card/60 backdrop-blur-xl border-primary/20 shadow-lg hover:border-primary/50 transition-colors group">
             <CardHeader>
               <ScaleIcon className="text-primary" />
               <CardTitle>Three choices</CardTitle>
@@ -85,7 +91,7 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="relative overflow-hidden bg-card/60 backdrop-blur-xl border-primary/20 shadow-lg hover:border-primary/50 transition-colors group">
             <CardHeader>
               <TrendingUpIcon className="text-primary" />
               <CardTitle>Statistics over time</CardTitle>
@@ -98,7 +104,7 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="relative overflow-hidden bg-card/60 backdrop-blur-xl border-primary/20 shadow-lg hover:border-primary/50 transition-colors group">
             <CardHeader>
               <RulerIcon className="text-primary" />
               <CardTitle>Your numbers</CardTitle>
@@ -114,9 +120,9 @@ export default function Home() {
         </section>
       </main>
 
-      <Separator />
+      <Separator className="relative z-10 opacity-50" />
 
-      <footer className="flex items-center justify-center px-6 py-6">
+      <footer className="flex items-center justify-center px-6 py-6 relative z-10">
         <p className="text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} CircaCal. All rights reserved.
         </p>

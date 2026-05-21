@@ -10,6 +10,7 @@ import {
 
 import type { Route } from "./+types/root";
 import { Button } from "~/components/ui/button";
+import { ThemeProvider } from "~/components/theme-provider";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -36,9 +37,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+        <ThemeProvider defaultTheme="dark" storageKey="circacal-theme">
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+        </ThemeProvider>
       </body>
     </html>
   );

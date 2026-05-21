@@ -7,6 +7,7 @@ import { getSession } from "~/lib/auth.server";
 import { APP_NAV_ITEMS, appRoutePath } from "~/lib/app-routes";
 import { Card } from "~/components/ui/card";
 import { cn } from "~/lib/utils";
+import { ThemeToggle } from "~/components/theme-toggle";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const session = await getSession(request);
@@ -41,6 +42,8 @@ export default function AppLayout() {
             <span className="hidden max-w-[14rem] truncate text-sm text-muted-foreground sm:block md:max-w-[18rem]">
               {user.email}
             </span>
+
+            <ThemeToggle />
 
             <Button variant="destructive" onClick={handleSignOut}>
               Sign out
