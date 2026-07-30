@@ -1,0 +1,504 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-30T20:30:00.000Z",
+  "title": "Design System: CircaCal",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Smolder Rose",
+        "canonical": "oklch(0.514 0.222 16.935)",
+        "tonalRamp": [
+          "oklch(0.25 0.12 17)",
+          "oklch(0.35 0.16 17)",
+          "oklch(0.455 0.188 13.697)",
+          "oklch(0.514 0.222 16.935)",
+          "oklch(0.586 0.253 17.585)",
+          "oklch(0.645 0.246 16.439)",
+          "oklch(0.81 0.117 11.638)",
+          "oklch(0.95 0.03 16)"
+        ]
+      },
+      "primary-dark": {
+        "role": "primary",
+        "displayName": "Smolder Rose (dark)",
+        "canonical": "oklch(0.455 0.188 13.697)",
+        "tonalRamp": [
+          "oklch(0.25 0.12 17)",
+          "oklch(0.35 0.16 17)",
+          "oklch(0.455 0.188 13.697)",
+          "oklch(0.514 0.222 16.935)",
+          "oklch(0.586 0.253 17.585)",
+          "oklch(0.645 0.246 16.439)",
+          "oklch(0.81 0.117 11.638)",
+          "oklch(0.95 0.03 16)"
+        ]
+      },
+      "primary-foreground": {
+        "role": "primary",
+        "displayName": "Rose Mist",
+        "canonical": "oklch(0.969 0.015 12.422)",
+        "tonalRamp": [
+          "oklch(0.4 0.05 12)",
+          "oklch(0.55 0.04 12)",
+          "oklch(0.7 0.03 12)",
+          "oklch(0.82 0.025 12)",
+          "oklch(0.9 0.02 12)",
+          "oklch(0.94 0.018 12)",
+          "oklch(0.969 0.015 12.422)",
+          "oklch(0.99 0.01 12)"
+        ]
+      },
+      "background": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "oklch(1 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0.008 326)",
+          "oklch(0.3 0.01 326)",
+          "oklch(0.5 0.01 326)",
+          "oklch(0.7 0.008 326)",
+          "oklch(0.85 0.005 326)",
+          "oklch(0.92 0.003 326)",
+          "oklch(0.97 0.002 326)",
+          "oklch(1 0 0)"
+        ]
+      },
+      "background-dark": {
+        "role": "neutral",
+        "displayName": "Midnight Mauve",
+        "canonical": "oklch(0.145 0.008 326)",
+        "tonalRamp": [
+          "oklch(0.12 0.01 326)",
+          "oklch(0.145 0.008 326)",
+          "oklch(0.212 0.019 322.12)",
+          "oklch(0.263 0.024 320.12)",
+          "oklch(0.4 0.02 322)",
+          "oklch(0.55 0.02 322)",
+          "oklch(0.711 0.019 323.02)",
+          "oklch(0.985 0 0)"
+        ]
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Mauve Ink",
+        "canonical": "oklch(0.145 0.008 326)",
+        "tonalRamp": [
+          "oklch(0.145 0.008 326)",
+          "oklch(0.25 0.015 322)",
+          "oklch(0.4 0.02 322)",
+          "oklch(0.542 0.034 322.5)",
+          "oklch(0.65 0.025 322)",
+          "oklch(0.75 0.02 322)",
+          "oklch(0.88 0.01 322)",
+          "oklch(0.985 0 0)"
+        ]
+      },
+      "foreground-dark": {
+        "role": "neutral",
+        "displayName": "Soft Snow",
+        "canonical": "oklch(0.985 0 0)",
+        "tonalRamp": [
+          "oklch(0.145 0.008 326)",
+          "oklch(0.3 0.02 322)",
+          "oklch(0.45 0.025 322)",
+          "oklch(0.6 0.02 322)",
+          "oklch(0.711 0.019 323.02)",
+          "oklch(0.85 0.01 322)",
+          "oklch(0.94 0.005 322)",
+          "oklch(0.985 0 0)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Quiet Mauve",
+        "canonical": "oklch(0.96 0.003 325.6)",
+        "tonalRamp": [
+          "oklch(0.2 0.02 320)",
+          "oklch(0.263 0.024 320.12)",
+          "oklch(0.4 0.02 322)",
+          "oklch(0.55 0.02 322)",
+          "oklch(0.7 0.015 324)",
+          "oklch(0.85 0.01 325)",
+          "oklch(0.96 0.003 325.6)",
+          "oklch(0.99 0.002 325)"
+        ]
+      },
+      "muted-dark": {
+        "role": "neutral",
+        "displayName": "Quiet Mauve (dark)",
+        "canonical": "oklch(0.263 0.024 320.12)",
+        "tonalRamp": [
+          "oklch(0.15 0.02 320)",
+          "oklch(0.212 0.019 322.12)",
+          "oklch(0.263 0.024 320.12)",
+          "oklch(0.35 0.025 321)",
+          "oklch(0.45 0.025 322)",
+          "oklch(0.6 0.02 322)",
+          "oklch(0.75 0.015 323)",
+          "oklch(0.9 0.01 324)"
+        ]
+      },
+      "muted-foreground": {
+        "role": "neutral",
+        "displayName": "Muted Mauve Text",
+        "canonical": "oklch(0.542 0.034 322.5)",
+        "tonalRamp": [
+          "oklch(0.25 0.03 322)",
+          "oklch(0.35 0.03 322)",
+          "oklch(0.45 0.032 322)",
+          "oklch(0.542 0.034 322.5)",
+          "oklch(0.65 0.025 322)",
+          "oklch(0.711 0.019 323.02)",
+          "oklch(0.82 0.015 323)",
+          "oklch(0.92 0.01 324)"
+        ]
+      },
+      "muted-foreground-dark": {
+        "role": "neutral",
+        "displayName": "Muted Mauve Text (dark)",
+        "canonical": "oklch(0.711 0.019 323.02)",
+        "tonalRamp": [
+          "oklch(0.35 0.03 322)",
+          "oklch(0.45 0.028 322)",
+          "oklch(0.542 0.034 322.5)",
+          "oklch(0.65 0.025 322)",
+          "oklch(0.711 0.019 323.02)",
+          "oklch(0.8 0.015 323)",
+          "oklch(0.9 0.01 324)",
+          "oklch(0.97 0.005 324)"
+        ]
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "Card White",
+        "canonical": "oklch(1 0 0)",
+        "tonalRamp": [
+          "oklch(0.145 0.008 326)",
+          "oklch(0.212 0.019 322.12)",
+          "oklch(0.4 0.02 322)",
+          "oklch(0.6 0.015 324)",
+          "oklch(0.8 0.01 325)",
+          "oklch(0.92 0.005 325)",
+          "oklch(0.97 0.003 325)",
+          "oklch(1 0 0)"
+        ]
+      },
+      "card-dark": {
+        "role": "neutral",
+        "displayName": "Mauve Card",
+        "canonical": "oklch(0.212 0.019 322.12)",
+        "tonalRamp": [
+          "oklch(0.12 0.01 326)",
+          "oklch(0.145 0.008 326)",
+          "oklch(0.212 0.019 322.12)",
+          "oklch(0.263 0.024 320.12)",
+          "oklch(0.35 0.022 321)",
+          "oklch(0.5 0.02 322)",
+          "oklch(0.7 0.015 323)",
+          "oklch(0.9 0.01 324)"
+        ]
+      },
+      "secondary": {
+        "role": "secondary",
+        "displayName": "Cool Mist",
+        "canonical": "oklch(0.967 0.001 286.375)",
+        "tonalRamp": [
+          "oklch(0.2 0.01 286)",
+          "oklch(0.274 0.006 286.033)",
+          "oklch(0.4 0.008 286)",
+          "oklch(0.55 0.006 286)",
+          "oklch(0.7 0.004 286)",
+          "oklch(0.85 0.003 286)",
+          "oklch(0.967 0.001 286.375)",
+          "oklch(0.99 0.001 286)"
+        ]
+      },
+      "secondary-dark": {
+        "role": "secondary",
+        "displayName": "Cool Mist (dark)",
+        "canonical": "oklch(0.274 0.006 286.033)",
+        "tonalRamp": [
+          "oklch(0.18 0.01 286)",
+          "oklch(0.21 0.006 285.885)",
+          "oklch(0.274 0.006 286.033)",
+          "oklch(0.4 0.008 286)",
+          "oklch(0.55 0.006 286)",
+          "oklch(0.7 0.004 286)",
+          "oklch(0.85 0.003 286)",
+          "oklch(0.95 0.002 286)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Hairline Border",
+        "canonical": "oklch(0.922 0.005 325.62)",
+        "tonalRamp": [
+          "oklch(0.3 0.01 326)",
+          "oklch(0.45 0.01 325)",
+          "oklch(0.6 0.008 325)",
+          "oklch(0.75 0.006 325)",
+          "oklch(0.85 0.005 325)",
+          "oklch(0.922 0.005 325.62)",
+          "oklch(0.96 0.003 325)",
+          "oklch(0.99 0.002 325)"
+        ]
+      },
+      "border-dark": {
+        "role": "neutral",
+        "displayName": "Hairline Border (dark)",
+        "canonical": "oklch(1 0 0 / 10%)",
+        "tonalRamp": [
+          "oklch(1 0 0 / 4%)",
+          "oklch(1 0 0 / 8%)",
+          "oklch(1 0 0 / 10%)",
+          "oklch(1 0 0 / 15%)",
+          "oklch(1 0 0 / 20%)",
+          "oklch(1 0 0 / 30%)",
+          "oklch(1 0 0 / 45%)",
+          "oklch(1 0 0 / 60%)"
+        ]
+      },
+      "destructive": {
+        "role": "primary",
+        "displayName": "Deficit Rose",
+        "canonical": "oklch(0.577 0.245 27.325)",
+        "tonalRamp": [
+          "oklch(0.3 0.15 27)",
+          "oklch(0.4 0.19 27)",
+          "oklch(0.5 0.22 27)",
+          "oklch(0.577 0.245 27.325)",
+          "oklch(0.65 0.2 25)",
+          "oklch(0.704 0.191 22.216)",
+          "oklch(0.82 0.12 22)",
+          "oklch(0.94 0.05 20)"
+        ]
+      },
+      "destructive-dark": {
+        "role": "primary",
+        "displayName": "Deficit Rose (dark)",
+        "canonical": "oklch(0.704 0.191 22.216)",
+        "tonalRamp": [
+          "oklch(0.35 0.15 22)",
+          "oklch(0.45 0.17 22)",
+          "oklch(0.55 0.19 22)",
+          "oklch(0.65 0.19 22)",
+          "oklch(0.704 0.191 22.216)",
+          "oklch(0.8 0.14 22)",
+          "oklch(0.88 0.1 22)",
+          "oklch(0.95 0.05 20)"
+        ]
+      },
+      "ring": {
+        "role": "neutral",
+        "displayName": "Focus Ring",
+        "canonical": "oklch(0.711 0.019 323.02)",
+        "tonalRamp": [
+          "oklch(0.35 0.03 323)",
+          "oklch(0.45 0.03 323)",
+          "oklch(0.542 0.034 322.5)",
+          "oklch(0.65 0.025 323)",
+          "oklch(0.711 0.019 323.02)",
+          "oklch(0.8 0.015 323)",
+          "oklch(0.9 0.01 324)",
+          "oklch(0.97 0.005 324)"
+        ]
+      },
+      "surplus": {
+        "role": "tertiary",
+        "displayName": "Surplus Green",
+        "canonical": "oklch(0.65 0.15 160)",
+        "tonalRamp": [
+          "oklch(0.3 0.1 160)",
+          "oklch(0.4 0.12 160)",
+          "oklch(0.5 0.14 160)",
+          "oklch(0.65 0.15 160)",
+          "oklch(0.72 0.12 160)",
+          "oklch(0.8 0.1 160)",
+          "oklch(0.9 0.06 160)",
+          "oklch(0.96 0.03 160)"
+        ]
+      },
+      "maintenance": {
+        "role": "tertiary",
+        "displayName": "Maintenance Blue",
+        "canonical": "oklch(0.55 0.15 250)",
+        "tonalRamp": [
+          "oklch(0.3 0.1 250)",
+          "oklch(0.4 0.12 250)",
+          "oklch(0.5 0.14 250)",
+          "oklch(0.55 0.15 250)",
+          "oklch(0.65 0.12 250)",
+          "oklch(0.75 0.1 250)",
+          "oklch(0.88 0.06 250)",
+          "oklch(0.96 0.03 250)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Landing hero headlines only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "App page titles such as Today."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card titles and estimate labels."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Supporting copy and field help."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, nav, and form labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-rest",
+        "value": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        "purpose": "Default elevated card surface with faint ring companion."
+      },
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 3px color-mix(in oklab, var(--ring) 30%, transparent)",
+        "purpose": "Keyboard focus on buttons and inputs."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-state",
+        "value": "150ms ease",
+        "purpose": "Default color and border state transitions on controls."
+      },
+      {
+        "name": "press-nudge",
+        "value": "transform: translateY(1px)",
+        "purpose": "Primary button active press feedback."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Smolder Rose CTA for primary actions and Get Started.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Start logging</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;height:2.25rem;padding:0.5rem 0.75rem;border:0;border-radius:2.275rem;background:var(--primary,oklch(0.514 0.222 16.935));color:var(--primary-foreground,oklch(0.969 0.015 12.422));font:500 0.875rem/1.25 Inter Variable,Inter,system-ui,sans-serif;cursor:pointer;transition:background-color .15s ease,transform .15s ease}.ds-btn-primary:hover{background:color-mix(in oklab,var(--primary,oklch(0.514 0.222 16.935)) 80%,transparent)}.ds-btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.711 0.019 323.02)) 30%,transparent)}.ds-btn-primary:active{transform:translateY(1px)}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary outline control for Sign In and quieter actions.",
+      "html": "<button class=\"ds-btn-outline\" type=\"button\">Sign In</button>",
+      "css": ".ds-btn-outline{display:inline-flex;align-items:center;justify-content:center;height:2.25rem;padding:0.5rem 0.75rem;border:1px solid var(--border,oklch(0.922 0.005 325.62));border-radius:2.275rem;background:var(--background,oklch(1 0 0));color:var(--foreground,oklch(0.145 0.008 326));font:500 0.875rem/1.25 Inter Variable,Inter,system-ui,sans-serif;cursor:pointer;transition:background-color .15s ease}.ds-btn-outline:hover{background:var(--muted,oklch(0.96 0.003 325.6))}.ds-btn-outline:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.711 0.019 323.02)) 30%,transparent)}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Low-emphasis header actions.",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\">Sign In</button>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;justify-content:center;height:2.25rem;padding:0.5rem 0.75rem;border:0;border-radius:2.275rem;background:transparent;color:var(--foreground,oklch(0.145 0.008 326));font:500 0.875rem/1.25 Inter Variable,Inter,system-ui,sans-serif;cursor:pointer;transition:background-color .15s ease}.ds-btn-ghost:hover{background:var(--muted,oklch(0.96 0.003 325.6))}.ds-btn-ghost:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.711 0.019 323.02)) 30%,transparent)}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "Soft pill field with translucent input wash.",
+      "html": "<input class=\"ds-input\" type=\"email\" placeholder=\"you@example.com\" />",
+      "css": ".ds-input{display:block;width:100%;height:2.25rem;padding:0.25rem 0.75rem;border:1px solid transparent;border-radius:1.925rem;background:color-mix(in oklab,var(--input,oklch(0.922 0.005 325.62)) 50%,transparent);color:var(--foreground,oklch(0.145 0.008 326));font:400 0.875rem/1.5 Inter Variable,Inter,system-ui,sans-serif;outline:none;transition:box-shadow .15s ease,border-color .15s ease}.ds-input::placeholder{color:var(--muted-foreground,oklch(0.542 0.034 322.5))}.ds-input:focus-visible{border-color:var(--ring,oklch(0.711 0.019 323.02));box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.711 0.019 323.02)) 30%,transparent)}"
+    },
+    {
+      "name": "Surface Card",
+      "kind": "card",
+      "refersTo": "card-default",
+      "description": "Pill-soft elevated card used for app shell and marketing features.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-title\">Three choices</div><p class=\"ds-card-body\">Tap deficit, maintenance, or surplus as a rough honest snapshot.</p></div>",
+      "css": ".ds-card{display:flex;flex-direction:column;gap:0.75rem;padding:1.5rem;border-radius:2.275rem;background:var(--card,oklch(1 0 0));color:var(--card-foreground,oklch(0.145 0.008 326));box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1),0 2px 4px -2px rgb(0 0 0 / 0.1);outline:1px solid color-mix(in oklab,var(--foreground,oklch(0.145 0.008 326)) 5%,transparent)}.ds-card-title{font:500 1rem/1.4 Inter Variable,Inter,system-ui,sans-serif}.ds-card-body{margin:0;font:400 0.875rem/1.5 Inter Variable,Inter,system-ui,sans-serif;color:var(--muted-foreground,oklch(0.542 0.034 322.5))}"
+    },
+    {
+      "name": "App Nav Link",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Rounded-full in-app section link with bottom hairline when active.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"App sections\"><a class=\"ds-nav-link is-active\" href=\"#\">Dashboard</a><a class=\"ds-nav-link\" href=\"#\">Statistics</a></nav>",
+      "css": ".ds-nav{display:flex;gap:0.5rem}.ds-nav-link{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:2.25rem;padding:0.25rem 0.75rem;border-radius:9999px;color:color-mix(in oklab,var(--foreground,oklch(0.145 0.008 326)) 60%,transparent);font:500 0.875rem/1.25 Inter Variable,Inter,system-ui,sans-serif;text-decoration:none;transition:color .15s ease}.ds-nav-link:hover,.ds-nav-link.is-active{color:var(--foreground,oklch(0.145 0.008 326))}.ds-nav-link.is-active::after{content:\"\";position:absolute;left:0;right:0;bottom:-5px;height:2px;background:var(--foreground,oklch(0.145 0.008 326))}.ds-nav-link:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.711 0.019 323.02)) 50%,transparent)}"
+    },
+    {
+      "name": "Estimate Radio",
+      "kind": "custom",
+      "refersTo": "estimate-radio",
+      "description": "Signature daily energy picker row with semantic selected ring.",
+      "html": "<button class=\"ds-estimate is-selected\" type=\"button\" role=\"radio\" aria-checked=\"true\"><span class=\"ds-estimate-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M12 20V10M8 20V4M16 20v-6\"/></svg></span><span class=\"ds-estimate-copy\"><span class=\"ds-estimate-label\">Maintenance</span><span class=\"ds-estimate-desc\">Roughly around maintenance today.</span></span></button>",
+      "css": ".ds-estimate{display:flex;align-items:flex-start;gap:0.75rem;width:100%;min-height:3.5rem;padding:0.75rem 1rem;border:1px solid color-mix(in oklab,oklch(0.55 0.15 250) 30%,transparent);border-radius:0.75rem;background:color-mix(in oklab,oklch(0.55 0.15 250) 10%,transparent);color:var(--foreground,oklch(0.145 0.008 326));text-align:left;cursor:pointer;transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease}.ds-estimate:hover{background:color-mix(in oklab,oklch(0.55 0.15 250) 16%,transparent)}.ds-estimate.is-selected{border-color:oklch(0.55 0.15 250);background:color-mix(in oklab,oklch(0.55 0.15 250) 20%,transparent);box-shadow:0 0 0 2px color-mix(in oklab,oklch(0.55 0.15 250) 35%,transparent)}.ds-estimate:focus-visible{outline:none;box-shadow:0 0 0 2px var(--background,oklch(1 0 0)),0 0 0 4px var(--ring,oklch(0.711 0.019 323.02))}.ds-estimate-icon{display:flex;align-items:center;justify-content:center;width:2.5rem;height:2.5rem;border-radius:0.5rem;background:color-mix(in oklab,var(--background,oklch(1 0 0)) 80%,transparent);color:oklch(0.55 0.15 250);flex-shrink:0}.ds-estimate-copy{display:flex;flex-direction:column;gap:0.125rem;min-width:0}.ds-estimate-label{font:500 1rem/1.4 Inter Variable,Inter,system-ui,sans-serif}.ds-estimate-desc{font:400 0.875rem/1.4 Inter Variable,Inter,system-ui,sans-serif;color:var(--muted-foreground,oklch(0.542 0.034 322.5))}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Midnight Check-In",
+    "overview": "CircaCal’s interface is a dark-first personal utility for one honest daily question. Surfaces stay soft and mauve-tinted; the Smolder Rose primary and flame wordmark read as a quiet ember in a midnight room, not a fitness dashboard. Density is calm and task-first: narrow content column, clear hierarchy, minimal chrome.\n\nThe system rejects clinical fitness chrome, neon gamification, bright wellness pastels, loud marketing card stacks, purple-gradient AI chrome, and spreadsheet density. Marketing may use a faint radial-masked grid and light glass cards; the authenticated app stays flatter and more operational.",
+    "keyCharacteristics": [
+      "Dark mode is the product default; light mode is a first-class twin of the same mauve/rose tokens",
+      "One type family (Inter Variable) across display through label",
+      "Soft-confident pill geometry (rounded-4xl controls, full-round nav)",
+      "Semantic energy triad (surplus / maintenance / deficit) carries meaning alongside brand primary",
+      "Narrow max-w-3xl app column; landing centers the same restraint"
+    ],
+    "rules": [
+      {
+        "name": "The Ember Rarity Rule",
+        "body": "Smolder Rose is brand signal, not wallpaper. Prefer muted neutrals for structure; use primary on CTAs, logo, and sparse highlights.",
+        "section": "colors"
+      },
+      {
+        "name": "The Triad Meaning Rule",
+        "body": "Surplus / maintenance / deficit colors are semantic, not decoration. Do not recolor them for aesthetic variety on the daily picker.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Voice Rule",
+        "body": "Do not introduce a second family for marketing or app chrome. Inter Variable is the system.",
+        "section": "typography"
+      },
+      {
+        "name": "The Narrow Column Rule",
+        "body": "App screens stay inside max-w-3xl. Do not stretch operational UI to full-bleed dashboards.",
+        "section": "layout"
+      },
+      {
+        "name": "The Tonal First Rule",
+        "body": "Prefer background/card/muted contrast over stacking shadows. Shadows support cards; they do not create floating widget theater.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Soft Pill Rule",
+        "body": "Interactive chrome defaults to near-pill radii. Sharp rectangles are out of system unless required by a data table cell.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do keep dark mode as the default product atmosphere while preserving the light twin.",
+      "Do use the surplus / maintenance / deficit triad for daily energy UI exactly as configured.",
+      "Do keep primary actions and the CircaCal flame mark in Smolder Rose.",
+      "Do prefer the narrow column and one-question hierarchy on the dashboard."
+    ],
+    "donts": [
+      "Don't introduce a second display font or serif for “premium” marketing.",
+      "Don't turn the app shell into a multi-panel analytics dashboard.",
+      "Don't replace estimate semantics with brand-primary coloring.",
+      "Don't add neon glows, purple AI gradients, or heavy glass stacks in the authenticated app.",
+      "Don't invent calorie, meal, or coaching UI patterns that fight the check-in metaphor."
+    ]
+  }
+}

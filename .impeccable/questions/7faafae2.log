@@ -1,0 +1,20 @@
+node:events:487
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: spawn start ENOENT
+    at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+    at onErrorNT (node:internal/child_process:508:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+Emitted 'error' event on ChildProcess instance at:
+    at ChildProcess._handle.onexit (node:internal/child_process:293:12)
+    at onErrorNT (node:internal/child_process:508:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'spawn start',
+  path: 'start',
+  spawnargs: [ 'http://127.0.0.1:64730/' ]
+}
+
+Node.js v24.18.0
